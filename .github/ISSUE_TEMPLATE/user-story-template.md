@@ -13,8 +13,14 @@ As I **visitor/user/admin** I can **ability** in order to **result**
 
 ### Completion Benchmark
 
-* CB1
+**CB1**
 
-* CB2
+- 
 
-* CB3
+**CB2**
+
+-
+
+**CB3**
+
+-
