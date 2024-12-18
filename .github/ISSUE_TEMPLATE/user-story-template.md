@@ -9,7 +9,7 @@ assignees: ''
 
 Using **project**;
 
-As I **visitor/user/admin** I can **ability** in order to **result**
+As a **visitor/user/admin** I can **ability** in order to **result**
 
 ### Completion Benchmark
 
