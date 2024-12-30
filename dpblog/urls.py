@@ -16,11 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from home import views as home_views
-from bgbuild import views as bgbuild_views
 
 urlpatterns = [
-    path("home/", home_views.my_blog, name='blog'),
-    path("bgbuild/", bgbuild_views.hello, name='hello'),
+    path("", include("bgbuild.urls"), name="bgbuild-urls"),
     path('admin/', admin.site.urls),
 ]

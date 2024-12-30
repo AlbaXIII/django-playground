@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import generic
+from .models import Bgbuild
 
 # Create your views here.
-
-def hello(request):
-    return HttpResponse("Please work")
+class BuildList(generic.ListView):
+    queryset = Bgbuild.objects.all()
+    template_name = "/workspace/django-playground/bgbuild/templates/bgbuild/build_list.html"
