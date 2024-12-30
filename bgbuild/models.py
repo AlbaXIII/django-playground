@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 # Dropdown fields
 BUILD_ROLES = [
     ('melee', 'Melee'),
@@ -56,3 +58,22 @@ class Bgbuild(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+
+class Review(models.Model):
+    """
+    A model to allow registered users to leave reviews on build posts.
+    """
+    user = models.ForeignKey(
+        User, related_name='review_owner', on_delete=models.CASCADE)
+    title = models.CharField(max_length=250, null=False, blank=False)
+    build = models.ForeignKey(
+        Bgbuild, related_name='reviews', on_delete=models.CASCADE)
+    rating = models.IntegerField(
+        default=1, validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1)
+        ]
+    )
+    content = models.TextField()
+    review_date = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
