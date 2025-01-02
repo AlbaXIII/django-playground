@@ -1,0 +1,33 @@
+body {
+    background-color: #423E37;
+}
+
+.main-logo {
+    padding-left: 10px;
+    padding-right: 25px;
+}
+
+.navbar {
+    font-family: Libre Baskerville;
+}
+
+.nav-item {
+    
+}
+
+.thin {
+    font-weight: 300;
+}
+
+.light-bg {
+    background-color: #fff;
+}
+
+.dark-bg {
+    background-color: #423E37;
+}
+
+.main-bg {
+    background-color: #423E37;
+}
+
