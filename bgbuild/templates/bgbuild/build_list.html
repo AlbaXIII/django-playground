@@ -2,54 +2,87 @@
 
 {% block content %}
 
-<!-- index.html content starts here -->
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-12 mt-3 left">
-            <div class="row">
-                {% for build in object_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="image-container">
-                                <div class="image-flash">
-                                    <p class="author">Author: {{ build.user }}</p>
-                                </div>
-                            </div>
-                            <a href="#" class="post-link">
-                                <h2 class="card-title">{{build.build_title}}</h2>
-                            </a>
-
-                            <hr/>
-
-                            <p class="#">{{ build.excerpt }}</p>
-
-
-                            <p class="card-text text-muted h6">{{ build.created_on}}</p>
-                        </div>
-                    </div>
-                </div>
-                {% if forloop.counter|divisibleby:3 %}
-            </div>
-            <div class="row">
-                {% endif %}
-                {% endfor %}
-
+<!-- search bar section for quick access to users -->
+<section class="search-area">
+    <div class="container-fluid">
+        <div class="search-bar">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search builds..." aria-label="Search" aria-describedby="search-addon">
+                <button class="btn btn-outline-secondary" type="button" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
         </div>
     </div>
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-</div>
+</section>
+
+<!-- build list -->
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-12 mt-3 left">
+                <div class="row">
+                    {% for build in object_list %}
+                    <div class="col-md-3">
+                        <div class="card mb-3 build-card">
+                            <div class="card-body">
+                                <div class="image-container mx-auto">
+                                    {% if "placeholder" in post.featured_image.url %}
+                                    <img class="card-img-left" src="#"
+                                        alt="placeholder image">
+                                    {% else %}
+                                    <img class="card-img-top" src="#" alt="#">
+                                    {% endif %}
+                                </div>
+                                <a href="#" class="build-link">
+                                    <h2 class="card-title">{{build.build_title}}</h2>
+                                </a>
+                                <a href="" class="build-likes">
+                                    <i class="fa-solid fa-heart"> ##</i>
+                                </a>
+                            </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><b>Role </b>| {{ build.build_role }}</li>
+                                    <li class="list-group-item"><b>Base class </b>| {{ build.base_class }}</li>
+                                    <li class="list-group-item">"{{ build.excerpt }}"</li>
+                                    <li class="list-group-item build-details">created by <a href="#" class="user-link">{{ build.user }}</a></li>
+                                </ul>
+                            <a href="#" class="btn btn-primary explore-btn">Explore build</a>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 %}
+                </div>
+                <div class="row">
+                    {% endif %}
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Add build button -->
+<section>
+    <div class="container add-build">
+        <div>
+            <a href="#">
+                <i class="fa-solid fa-circle-plus fa-2xl"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
 
 <!-- index.html content ends here -->
 {% endblock %}
