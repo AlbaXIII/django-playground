@@ -56,9 +56,32 @@ body {
     background-color: #423E37;
 }
 
+/* home page index styles */
+
+.main-title {
+    left: 0;
+    line-height: 200px;
+    margin-top: -100px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+    color: #fff;
+}
+
+.main-title strong {
+    font-family: Libre Baskerville, sans-serif;
+    font-size: 2.8rem;
+    color: #FFD151;
+}
+
+.main-subtitles {
+    font-family: Libre Baskerville, sans-serif;
+    font-size: 2rem;
+}
 
 
-/* build list styles */
+/* bg build list styles */
 
 .search-bar {
     max-width: 500px;
@@ -86,10 +109,6 @@ body {
 .add-btn {
     display: block;
     margin: 0;
-}
-
-.build-card {
-    
 }
 
 .image-container {

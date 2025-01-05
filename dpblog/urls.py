@@ -20,5 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path("", include("bgbuild.urls"), name="bgbuild-urls"),
+    path('', include('home.urls')),
+    path("bgbuild/", include("bgbuild.urls"), name="bgbuild-urls"),
+    
 ]
