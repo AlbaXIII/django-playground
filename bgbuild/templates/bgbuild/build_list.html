@@ -50,7 +50,9 @@
                                     <li class="list-group-item">"{{ build.excerpt }}"</li>
                                     <li class="list-group-item build-details">created by <a href="#" class="user-link">{{ build.user }}</a></li>
                                 </ul>
-                            <a href="#" class="btn btn-primary explore-btn">Explore build</a>
+                            <a href="{% url 'build_detail' build.slug %}" class="btn btn-primary explore-btn"
+                                aria-label="Opens post {{ build.build_title }}">Explore Build
+                            </a>
                         </div>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}

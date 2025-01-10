@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section>
+    <div class="masthead">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-md-6 masthead-text">
+                    <!--Button link to go back to all builds-->
+                    <a href="{% url 'builds' %}" class="btn btn-outline-dark mt-3" aria-label="Goes to all builds page">
+                        &laquo; Back to All Builds
+                    </a>
+                    <!-- Title -->
+                    <h1 class="post-title p-4">{{ build.build_title }}</h1>
+                </div>
+                <div class="d-md-block col-md-6 p-4">
+                    <div class="image-container">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                  <strong class="text-secondary">
+                    <i class="far fa-comments"></i> {{ review_count }}
+                  </strong>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 card mb-4  mt-3 ">
+                  <h3>Reviews:</h3>
+                  <div class="card-body">
+                    <!-- We want a for loop inside the empty control tags
+                      to iterate through each comment in comments -->
+                    {% for review in reviews %}
+                    <div class="p-2 comments
+                      {% if not review.approved and review.author == user %}
+                      faded{% elif not review.approved %} d-none{% endif %}">
+                      <p class="font-weight-bold">
+                        {{ review.user }}
+                        <span class="font-weight-normal">
+                          {{ review.review_date }}
+                        </span> wrote:
+                      </p>
+                      <div id="comment{{ comment.id }}">
+                        {{ review.content | linebreaks }}
+                      </div>
+                      {% if not review.approved and review.user == user %}
+                      <p class="approval">
+                        This comment is awaiting approval
+                      </p>
+                      {% endif %}
+                      {% if user.is_authenticated and review.user == user %}
+                      <button class="btn btn-delete" data-review_id="{{ review.id }}">Delete</button>
+                      <button class="btn btn-edit" data-review_id="{{ review.id }}">Edit</button>
+                      {% endif %}
+                    </div>
+                    <!-- Our for loop ends here -->
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

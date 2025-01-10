@@ -59,6 +59,9 @@ class Bgbuild(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
 
+    def __str__(self):
+        return f"{self.build_title} | written by {self.user}"
+
 class Review(models.Model):
     """
     A model to allow registered users to leave reviews on build posts.
@@ -77,3 +80,9 @@ class Review(models.Model):
     content = models.TextField()
     review_date = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["review_date"]
+
+    def __str__(self):
+        return f"review {self.content} by {self.user}"
