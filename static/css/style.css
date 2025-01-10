@@ -172,3 +172,9 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.add-build a:hover {
+    color: #423E37;
+    filter: invert(100%);
+    font-size: 18px;
+}

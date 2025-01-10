@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 from .models import Bgbuild
-from .forms import CommentForm
+from .forms import CommentForm, BgBuildForm
 from django.contrib import messages
 
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin, UserPassesTestMixin
+)
 
 # Create your views here.
 class BuildList(generic.ListView):
@@ -52,3 +56,35 @@ def build_detail(request, slug):
             "comment_form": comment_form,
         },
     )
+
+class AddBuild(LoginRequiredMixin, CreateView):
+    """
+    Create a new build.
+
+    **Context**
+
+    ``form``
+        An instance of :form:`build.BuildForm`.
+
+    **Template:**
+
+    :template:`bgbuild/add_build.html`
+    """
+    template_name = 'bgbuild/add_build.html'
+    model = Bgbuild
+    form_class = BgBuildForm
+    success_url = "/builds_list/"
+
+    def form_valid(self, form):
+        """
+        If the form is valid, assign the logged-in user to the build,
+        save the form, and display a success message.
+        """
+        form.instance.user = self.request.user
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            f'{self.request.user} your build post was successfully submitted'
+        )
+        response = super().form_valid(form)
+        return response
