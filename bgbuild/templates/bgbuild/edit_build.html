@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <!--Back to all builds button-->
+            <a href="{% url 'build_list' %}" class="btn btn-outline-dark mt-3" aria-label="Goes to all builds page">
+                &laquo; Back to All Builds
+            </a>
+            <!-- Page Title-->
+            <h1 class="title">Edit your build posts here!</h1>
+        </div>
+    </div>       
+</div>
+
+<!--Edit post form-->
+<div class="container">
+    <form method="POST" enctype="multipart/form-data" class="p-5 form">
+        <h2 class="text-center title"> Edit Build Post</h2>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <div class="text-center">
+            <button type="submit" class="btn btn btn-signup btn-outline-dark">Edit Build</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

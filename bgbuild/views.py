@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
-from .models import Bgbuild
+from .models import Bgbuild, Review
 from .forms import CommentForm, BgBuildForm
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 from django.contrib.auth.mixins import (
     LoginRequiredMixin, UserPassesTestMixin
@@ -73,7 +74,7 @@ class AddBuild(LoginRequiredMixin, CreateView):
     template_name = 'bgbuild/add_build.html'
     model = Bgbuild
     form_class = BgBuildForm
-    success_url = "/builds_list/"
+    success_url = "/bgbuild/"
 
     def form_valid(self, form):
         """
@@ -87,4 +88,40 @@ class AddBuild(LoginRequiredMixin, CreateView):
             f'{self.request.user} your build post was successfully submitted'
         )
         response = super().form_valid(form)
+        return response
+
+class EditBuild(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Edit an existing build.
+
+    **Context**
+
+    ``form``
+        An instance of :form:`build.BuildForm`.
+
+    **Template:**
+
+    :template:`builds/edit_build.html`
+    """
+    template_name = "bgbuild/edit_build.html"
+    model = Bguild
+    form_class = BgBuildForm
+    success_url = '/bgbuild/'
+
+    def test_func(self):
+        """
+        Ensure that the logged-in user is the owner of the build.
+        """
+        return self.request.user == self.get_object().user
+
+    def form_valid(self, form):
+        """
+        If the form is valid, assign the logged-in user to the build,
+        save the form, and display a success message.
+        """
+        form.instance.user = self.request.user
+        response = super().form_valid(form)
+        messages.add_message(
+            self.request, messages.SUCCESS,
+            f'{self.request.user} your build post was successfully edited')
         return response

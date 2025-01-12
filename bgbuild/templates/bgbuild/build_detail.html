@@ -50,7 +50,7 @@
                           {{ review.review_date }}
                         </span> wrote:
                       </p>
-                      <div id="comment{{ comment.id }}">
+                      <div id="review{{ review.id }}">
                         {{ review.content | linebreaks }}
                       </div>
                       {% if not review.approved and review.user == user %}
@@ -90,4 +90,8 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block extras %}
+  <script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
